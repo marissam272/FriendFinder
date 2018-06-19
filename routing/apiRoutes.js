@@ -34,7 +34,7 @@ module.exports = function(app) {
     // It will do this by sending out the value "true" have a table
     // req.body is available since we're using the body-parser middleware
 
-
+console.log("making sure this works first");
 //     if (friendsData.length < 5) {
 //       friendsData.push(req.body);
 //       res.json(true);
@@ -42,8 +42,8 @@ module.exports = function(app) {
 //     else {
 //       waitListData.push(req.body);
 //       res.json(false);
-//     }
-//   });
+    // }
+  });
 
   // ---------------------------------------------------------------------------
   // I added this below code so you could clear out the table while working with the functionality.
