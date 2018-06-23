@@ -6,8 +6,8 @@
 // ===============================================================================
 
 var siteFriends = [{
-    "name": "Hootie",
-    "photo": "/images/country.jpeg",
+    "name": "Tom",
+    "photo": "/images/Tom-Skilling-2.jpeg",
     "scores": [
         "1",
         "5",
@@ -21,7 +21,35 @@ var siteFriends = [{
 
 {
     "name": "Bro",
-    "photo": "/images/brah.jpeg",
+    "photo": "/images/Cubs-fan.jpeg",
+    "scores": [
+        "5",
+        "1",
+        "5",
+        "5",
+        "2",
+        "1",
+        "2"
+    ]
+},
+
+{
+    "name": "Rahm",
+    "photo": "/images/Rahm.jpeg",
+    "scores": [
+        "5",
+        "1",
+        "5",
+        "5",
+        "2",
+        "1",
+        "2"
+    ]
+},
+
+{
+    "name": "Amy",
+    "photo": "/images/amyschumer.jpeg",
     "scores": [
         "5",
         "1",

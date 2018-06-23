@@ -4,7 +4,7 @@
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 // ===============================================================================
 
-var friendsData = require("../data/friendsData");
+var siteFriends = require("../data/friendsData.js");
 
 // ===============================================================================
 // ROUTING
@@ -17,8 +17,8 @@ module.exports = function(app) {
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
 
-  app.get("/api/survey", function(req, res) {
-    res.json(friendsData);
+  app.get("/api/friends", function(req, res) {
+    res.json(siteFriends);
   });
 
   // API POST Requests
@@ -29,30 +29,64 @@ module.exports = function(app) {
   // Then the server saves the data to the tableData array)
   // ---------------------------------------------------------------------------
 
-  app.post("/api/survey", function(req, res) {
+  app.post("/api/friends", function(req, res) {
     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
     // It will do this by sending out the value "true" have a table
     // req.body is available since we're using the body-parser middleware
 
 console.log("making sure this works first");
-//     if (friendsData.length < 5) {
-//       friendsData.push(req.body);
-//       res.json(true);
-//     }
-//     else {
-//       waitListData.push(req.body);
-//       res.json(false);
-    // }
-  });
+var goodFriend;
+var userBio = req.body;
+var userScore = userBio.scores;
 
-  // ---------------------------------------------------------------------------
-  // I added this below code so you could clear out the table while working with the functionality.
-  // Don"t worry about it!
 
-  app.post("/api/clear", function() {
-    // Empty out the arrays of data
-    friendsData = [];
+console.log(`userScore outside of loop: ${userScore}`);
 
-    console.log(friendsData);
-  });
+var bestMatch = {
+    name: "",
+    photo: "",
+    friendDiff: 10000000
+}
+
+
+siteFriends.forEach(function(element, j) {
+
+    var totalScore = 0;
+    var difference = 0;
+    console.log(`inside ${element.name}'s loop ******${j}*******`);
+    console.log(`element.name: ${element.name}: element.scores:${element.scores} with a j index of ${j}`);
+    console.log(`******************************************`);
+    
+    //looping within the siteFriends Loop--------------------
+    element.scores.forEach(function(list, l) {
+        //caching variable to get absolute value diffence
+       difference = Math.abs(userScore[l] - list);
+        console.log(`orbit userScore[l]: ${userScore[l]} - ${list} (list): ${userScore[l] - list}`);
+        totalScore += difference;
+        
+        // console.log(`-------------`);
+        // console.log(`compatibility score (lower number is better): ${totalScore}`);
+    })
+    console.log(`totalScore (lower number is better): ${totalScore}`);
+    
+    if (totalScore < bestMatch.friendDiff) {
+        console.log(`say hello to your new friend ${element.name} ${element.photo}`);
+        bestMatch.name = element.name;
+        bestMatch.photo = element.photo;
+        bestMatch.friendDiff = totalScore;
+        console.log(`best Match name: ${bestMatch.name}`);
+        console.log(`best Match difference: ${bestMatch.friendDiff}`);
+        
+    }
+    //     console.log(`no friends for you`);
+    // };
+
+});
+//had to after all the logic was performed
+siteFriends.push(userBio);
+//res responds to the fronte end wit hteh besMatch object
+res.json(bestMatch);
+
+}); 
+
 };
